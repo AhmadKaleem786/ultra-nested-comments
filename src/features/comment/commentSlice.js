@@ -17,18 +17,18 @@ const CommentSlice = createSlice({
         return data.id !== payload.id;
       });
 
-      if (payload.child) {
-        try {
+
           deleteAllChild(payload.id);
-        } catch {
-          console.log("no need to run deleteAllChild Function");
-        }
-      }
+
 
       function deleteAllChild(payl) {
         const newId = state.commentRecord.filter((data) => {
           return data.parentId === payl;
         });
+        
+        if (newId.length === 0) {
+          return;
+        }
         state.commentRecord = state.commentRecord.filter((data) => {
           return data.parentId !== payl;
         });
